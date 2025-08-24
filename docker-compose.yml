@@ -1,76 +1,3 @@
-# services:
-#   postgres:
-#     image: postgres:13
-#     environment:
-#       POSTGRES_USER: ${POSTGRES_USER}
-#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#       POSTGRES_DB: ${POSTGRES_DB}
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     healthcheck:
-#       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-#       interval: 5s
-#       timeout: 5s
-#       retries: 5
-
-#   airflow-webserver:
-#     image: apache/airflow:2.6.3
-#     env_file:
-#       - .env
-#     volumes:
-#       - ./dags:/opt/airflow/dags
-#       - ./scripts:/opt/airflow/scripts
-#       - ./requirements.txt:/opt/airflow/requirements.txt
-#       - ./logs:/opt/airflow/logs
-#     ports:
-#       - "8080:8080"
-#     command: webserver
-#     depends_on:
-#       postgres:
-#         condition: service_healthy
-#       airflow-init:
-#         condition: service_completed_successfully
-#     healthcheck:
-#       test: ["CMD-SHELL", "[ -f /opt/airflow/airflow-webserver.pid ]"]
-#       interval: 30s
-#       timeout: 30s
-#       retries: 3
-
-#   airflow-scheduler:
-#     image: apache/airflow:2.6.3
-#     env_file:
-#       - .env
-#     volumes:
-#       - ./dags:/opt/airflow/dags
-#       - ./scripts:/opt/airflow/scripts
-#       - ./requirements.txt:/opt/airflow/requirements.txt
-#       - ./logs:/opt/airflow/logs
-#     command: scheduler
-#     depends_on:
-#       - postgres
-#       - airflow-init
-
-#   airflow-init:
-#     image: apache/airflow:2.6.3
-#     env_file:
-#       - .env
-#     volumes:
-#       - ./dags:/opt/airflow/dags
-#       - ./scripts:/opt/airflow/scripts
-#       - ./logs:/opt/airflow/logs
-#     command: version
-#     environment:
-#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
-#       _AIRFLOW_DB_UPGRADE: "true"
-#       _AIRFLOW_WWW_USER_CREATE: "true"
-#       _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USERNAME}
-#       _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD}
-
-# volumes:
-#   postgres_data:
-
 services:
   postgres:
     image: postgres:13
@@ -79,7 +6,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
