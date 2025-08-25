@@ -57,6 +57,8 @@ source envname/bin/activate
 python -m pip install -r requirements.txt
 ```
 
+Keep Docker opened
+
 3. Bring the services:
 
    `docker-compose up -d`
@@ -85,6 +87,8 @@ python -m pip install -r requirements.txt
   `docker-compose exec postgres psql -U admin -d postgres -c "SELECT datname FROM pg_database;"`  
   `docker-compose exec postgres psql -U admin -d stock_pipeline -c "SELECT tablename FROM pg_tables WHERE schemaname='public';"`  
   `docker-compose exec postgres psql -U admin -d stock_pipeline -c "SELECT * FROM stock_data;"`
+
+  ![alt text](image.png)
 
 Using pgAdmin (Desktop):
 
